@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 public class LoginManager {
 	
@@ -7,6 +8,8 @@ public class LoginManager {
 	 */
 	private Student student;
 	private FileHandler filehandler = new FileHandler();
+	String id;
+	static Scanner console;
 
 	public Student getStudent() {
 		return student;
@@ -34,7 +37,9 @@ public class LoginManager {
 	 */
 	public void logIn() {
 		this.student = new Student();
-		this.student.setId(System.getProperty("user.name"));
+		System.out.println("Please create user name.");
+		String id = console.next();
+		this.student.setId(id);
 		this.student.setName(this.student.getId());
 	}
 }
