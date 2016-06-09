@@ -9,7 +9,7 @@ public class LoginManager {
 	private Student student;
 	private FileHandler filehandler = new FileHandler();
 	String id;
-	static Scanner console;
+	Scanner console = new Scanner(System.in);
 
 	public Student getStudent() {
 		return student;
@@ -30,15 +30,12 @@ public class LoginManager {
 	
 	/*
 	 * Create a new student
-	 *  assign the id and name 
-	 *    --  for now use System.getProperty("user.name"
-	 *  future implementation to do :
-	 *  create a login procedure to get id name or create new
+	 *  User will type user name in console.
 	 */
 	public void logIn() {
 		this.student = new Student();
 		System.out.println("Please create user name.");
-		String id = console.next();
+		String id = console.nextLine();
 		this.student.setId(id);
 		this.student.setName(this.student.getId());
 	}
