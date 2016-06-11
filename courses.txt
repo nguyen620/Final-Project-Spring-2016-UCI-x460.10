@@ -1,0 +1,15 @@
+3	Algebra 101	01/02/2016 - 04/01/2016 m w f	Intro to Algebra	20	10
+4	Algebra 102	01/02/2016 - 04/01/2016 m w f	Advanced Algebra	20	11
+1	Biology 101	01/02/2016 - 04/01/2016 m w f	Beginning Biology	20	12
+2	Biology 102	01/02/2016 - 04/01/2016 m w f	Advanced Biology	20	14
+8	English 102	01/02/2016 - 04/01/2016 m w f	College Prep English	20	10
+7	English 101	01/02/2016 - 04/01/2016 m w f	Advanced AP English	20	10
+6	US History	01/02/2016 - 04/01/2016 m w f	Guide to US History	20	10
+5	World History	01/02/2016 - 04/01/2016 m w f	Intro to World History	20	10
+9	Psychology 101	05/01/2016 - 08/01/2016 m w f	Learning Psychology	10	0
+10	Sociology 101	05/01/2016 - 08/01/2016 m w f	Learning Sociology	10	0
+11	Computing 101	05/01/2016 - 08/01/2016 m w f	Beginning Computers	15	0
+12	Computing 102	05/01/2016 - 08/01/2016 m w f	Intermediate Computers	15	0
+13	Computing 103	05/01/2016 - 08/01/2016 m w f	Advanced Computers	15	0
+14	Arts 101	05/01/2016 - 08/01/2016 m w f	Arts for Beginners	25	0
+15	Arts 103	05/01/2016 - 08/01/2016 m w f	Arts for Professionals	25	0
