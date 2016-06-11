@@ -6,7 +6,7 @@
 7	English 101	01/02/2016 - 04/01/2016 m w f	Advanced AP English	20	10
 6	US History	01/02/2016 - 04/01/2016 m w f	Guide to US History	20	10
 5	World History	01/02/2016 - 04/01/2016 m w f	Intro to World History	20	10
-9	Psychology 101	05/01/2016 - 08/01/2016 m w f	Learning Psychology	10	0
+9	Psychology 101	05/01/2016 - 08/01/2016 m w f	Learning Psychology	10	10
 10	Sociology 101	05/01/2016 - 08/01/2016 m w f	Learning Sociology	10	0
 11	Computing 101	05/01/2016 - 08/01/2016 m w f	Beginning Computers	15	0
 12	Computing 102	05/01/2016 - 08/01/2016 m w f	Intermediate Computers	15	0

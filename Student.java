@@ -1,20 +1,24 @@
-import java.util.Scanner;
 
 public class Student {
 	
 	/*
 	 * Properties
 	 */
-	String studentName;
+	private String id = "";
+	private String name = "";
 	private Schedule schedule = new Schedule(); 
-	static Scanner console;
-	
-	public void getStudentName() {
-		  System.out.println("Please type your first and last name.");
-		  studentName = console.next();
-		  
+	public String getId() {
+		return id;
 	}
-	
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public Schedule getSchedule() {
 		return schedule;
 	}
