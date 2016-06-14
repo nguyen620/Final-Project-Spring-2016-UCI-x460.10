@@ -3,226 +3,197 @@ import java.util.Collections;
 
 public class Schedule {
 
-	/*
-	 * Defualt constructor
-	 */
+	// default constructor
 	public Schedule() {
 
 	}
-
-	/*
-	 * Overloaded constructor for more creation control and convienance
-	 */
-	public Schedule(Student student, Catalog _catalog) {
-		// needs implemeted
-
+  
+	public Schedule(Student student, Catalog catalog){
+		studentId = student.getId();
+		this.catalog = catalog;		
+			 
 	}
 
-	/*
-	 * Properties
-	 */
+	// properties
 	private String file = "schedule.tab";
-	private String studentId;
-	private Catalog catalog;
+	private String studentId ;
+	private Catalog catalog ;
 	private FileHandler fileHandler = new FileHandler();
 	private ArrayList<Integer> courseIds = new ArrayList<Integer>();
-
+	private String HEADER = "Id\tName\t\tDates\t\t\t\tSummary\t\t\tSeats\tStudents\n" + 
+			  	"-------------------------------------------------------------------------------------------------\n";	
+		
+	// get file
 	public String getFile() {
 		return file;
 	}
 
+	// set file
 	public void setFile(String file) {
-		this.file = file;
+		this.file = file;			 
 	}
 
+	// get student id
 	public String getStudentId() {
 		return studentId;
 	}
 
+	// set student id
 	public void setStudentId(String studentId) {
-		this.studentId = studentId;
+		this.studentId = studentId;	 
 	}
 
+	// get catalog
 	public Catalog getCatalog() {
-		return catalog;
+		return catalog;	 
 	}
 
+	// set catalog
 	public void setCatalog(Catalog catalog) {
-		this.catalog = catalog;
+		this.catalog = catalog; 
 	}
 
+	// get file handler
 	public FileHandler getFileHandler() {
 		return fileHandler;
 	}
 
+	// set file handler
 	public void setFileHandler(FileHandler fileHandler) {
-		this.fileHandler = fileHandler;
+		this.fileHandler = fileHandler; 
 	}
 
+	// get course ids
 	public ArrayList<Integer> getCourseIds() {
 		return courseIds;
 	}
 
+	// set course ids
 	public void setCourseIds(ArrayList<Integer> courseIds) {
-		this.courseIds = courseIds;
+		this.courseIds = courseIds; 
 	}
 
-	/*
-	 * 1.Create array list and get data from filehandler
-	 * 2. create new arraylist for courseIds
-	 * 3. iterate over data
-	 * 3a. -- split each line using \t
-	 * 3.b  if the id in line equals the student id  
-	 * 3.c  then add the courseid to the courseIds
-	 */
-	public void loadSchedule() {
+	// load schedule from file
+	public void loadSchedule (){
+		// get data from file handler
 		ArrayList<String> data = fileHandler.getData();
+
+		// create a new array list 
 		courseIds = new ArrayList<Integer>();
-		for (String l : data) {
-			String[] line = l.split("\t");
-			if (line[0].equals(studentId)) {
-				courseIds.add(new Integer(Integer.parseInt(line[1])));
+	
+		// traverse through the data to find student's courses
+		for (String temp : data) {
+			// Split string by tab
+			String[] entry = temp.split("\t");
+
+			// if studenId equals the one from the file, add course
+			if (entry[0].equals(studentId)) {
+				courseIds.add(new Integer(Integer.parseInt(entry[1])));
 			}
-		}
+		}		 
 	}
 
-	/*
-	 * 1. create arrayList to hold newData
-	 * 2. iterate over courseIds
-	 * 2a. -- add StudentId + courseId.to_string()  to new date ,  delimit with \t
-	 * 3. save data with filehandler
-	 */
-	public void saveSchedule() {
-		ArrayList<String> newData = new ArrayList<String>();
+	// save schedule to file
+	public void saveSchedule(){
+		// temp arraylist of string
+		ArrayList<String> temp = new ArrayList<String>();
+
+		// put the course ids into the temp arraylist
 		for (Integer courseId : courseIds) {
-			newData.add(studentId + "\t" + courseId.toString());
+			temp.add(studentId + "\t" + courseId.toString());
 		}
-		fileHandler.saveData(newData);
 
+		// save file
+		fileHandler.saveData(temp); 
 	}
 
-	/*
-	 * 1. Iterate over courseIds
-	 * 1a -- get course from catalog with id  and print it out to system.
-	 */
-	public void printSchedule() {
+	// print schedule
+	public void printSchedule(){
+		// traverse through courses and print
 		for (Integer courseId : courseIds) {
 			System.out.println(catalog.getCourse(courseId));
-		}
+		}	
+	} 
 
-	}
-
-	/*
-	 * 1. Create a Type Course reference, course 
-	 * 2.check to see if id is in Schedule
-	 * 3 if it is then output to system 'course is already resgistered'
-	 * 4. else get course from catalog with the id  and assign to course
-	 * 5. if course is null 
-	 * 6. then output to system 'Course not in catalog' 
-	 * 7. else if course size is greater or equal to course limit
-	 * 8. then output to system course is full
-	 * 9. else add course id to courseIDs
-	 * 10 and increase course size by 1
-	 * 11 and save catalog
-	 * 12 and save schedule
-	 * 13 and output to system success of adding course .. inlcude course name
-	 */
-	public void addCourse(int id) {
+	// add course to schedule
+	public void addCourse(int id){
 		Course course;
+		
+		// check to see if course is already in schedule
 		if (courseInSchedule(id)) {
-			System.out.println("Already registered for Course");
-		} else {
+			System.out.println("Already registered for Course " + String.valueOf(id) + " " + catalog.getCourse(id).getName());
+		}
+		else {
 			course = catalog.getCourse(id);
 
-			if (course == null) {
-
-				System.out.println("Course is not in Catalog");
-			} else if (course.getSize() >= course.getLimit()) {
-
-				System.out.println("Course is Full");
-			} else {
-
+			// check to see if exists
+			if (course == null)
+			{
+				System.out.println("Course " + String.valueOf(id) + " is not in Catalog");
+			}
+			// check to see if course is full
+			else if (course.getSize() >= course.getLimit()) {
+				System.out.println("Course " + course.getId() + " " + course.getName() + " is Full");
+			}
+			// add course
+			else {
 				courseIds.add(new Integer(course.getId()));
+				
+				// update course size and save
 				course.setSize(course.getSize() + 1);
 				catalog.saveCourses();
 				saveSchedule();
-				System.out.println("Course " + course.getId() + " " + course.getName() + " added ");
 
+				System.out.println("Cousre " + course.getId() + " " + course.getName() + " added");
 			}
-		}
-
+		}		
 	}
 
-	/*
-	 * 1. create a Course type reference 
-	 * 2. if id is not in schedule 
-	 * 3. then output to system "Course is not currently in schedule "
-	 * 4. else get Course from catalog with ID and assign to course
-	 * 5. and remove ID from coursids
-	 * 6.  and save catalog
-	 * 7. and saveSchedule
-	 * 8. output to system success of removing course  include course name
-	 */
+	// remove course from schedule
 	public void removeCourse(int id) {
 		Course course;
+
+		// check to see if course is in schedule
 		if (!courseInSchedule(id)) {
-			System.out.println("Course is not currently in schedule ");
-		} else {
+			System.out.println("Course " + String.valueOf(id) + " is not in your schedule");
+		}
+		// remove course
+		else {
 			course = catalog.getCourse(id);
 			courseIds.remove(new Integer(course.getId()));
+			
+			// update size and save
 			course.setSize(course.getSize() - 1);
 			catalog.saveCourses();
 			saveSchedule();
-			System.out.println("Course " + course.getId() + " " + course.getName() + " removed ");
-
+			
+			System.out.println("Course " + course.getId() + " " + course.getName() + " removed");
 		}
-
 	}
 
-	
-	/*
-	 * check if id is in courseIDs
-	 * return results
-	 */
-	public boolean courseInSchedule(int id) {
-		boolean present = false;
-		for (Integer courseId : courseIds) {
-			if (courseId == id) {
-				present = true;
-				break;
-			}
-		}
-		return present;
+	// check to see if course is already in schedule
+	public boolean courseInSchedule( int id ){
+		return courseIds.contains(id);
 	}
-	
-	/*
-	 * 1.Create String , list
-	 * 2. create new Arraylist,  courses
-	 * 3. iterate over courseIds
-	 * 3a. -- get Course from catalog with Id
-	 * 3b --  add course to courses
-	 * 4.  sort courses
-	 * 5. add header to list "Id\tName\t\tDates\t\t\t\tSummary\t\t\tSeats\tStudents\n"
-	 * 6. iterate over courses
-	 * 6a. -- add courses.to_string() to list
-	 * 7. return list
-	 */
 
-
+	// concat HEADER and list of courses (in order)
 	@Override
 	public String toString() {
-		String list = "";
+		String string = HEADER;
 		ArrayList<Course> courses = new ArrayList<Course>();
+
+		// go through schedule and add to arraylist to srot
 		for (Integer courseId : courseIds) {
 			courses.add(catalog.getCourse(courseId));
 		}
+		
 		Collections.sort(courses);
-		list ="Id\tName\t\tDates\t\t\t\tSummary\t\t\tSeats\tStudents\n" +
-				"-------------------------------------------------------------------------------------------------\n";
-		for (Course c : courses) {
-			list += c.toString() + "\n";
+	
+		// add courese to the string
+		for (Course course : courses) {
+			string += course.toString() + "\n";
 		}
 
-		return list;
+		return string;
 	}
 }
